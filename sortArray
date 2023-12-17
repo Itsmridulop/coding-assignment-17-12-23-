@@ -1,0 +1,41 @@
+#include<stdio.h>
+void swap(int *x,int *y){
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+int pratition(int arr[],int lower,int upper){
+    int pivot = arr[lower];
+    int strt = lower;
+    int end = upper;
+    while(strt < end){
+        while(arr[strt] <= pivot)
+            strt++;
+        while(arr[end] > pivot)
+            end--;
+        if(strt < end)
+            swap(&arr[strt],&arr[end]);
+    }
+    swap(&arr[lower],&arr[end]);
+    return end;
+}
+void quickSort(int arr[],int lower,int upper){
+    int loc;
+    if(lower < upper){
+        loc = pratition(arr,lower,upper);
+        quickSort(arr,lower,loc-1);
+        quickSort(arr,loc+1,upper);
+    }
+}
+int main(){
+    int size;
+    printf("Size: ");
+    scanf("%d",&size);
+    int arr[size];
+    printf("Enter elements: ");
+    for(int i = 0;i < size;i++)
+        scanf("%d",&arr[i]);
+    quickSort(arr,0,size-1);
+    for(int i = 0;i < size;i++)
+        printf("%3d",arr[i]);
+}
